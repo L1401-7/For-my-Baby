@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Love Test 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffd6e8 0%, #fff0f6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            text-align: center;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Screen 1: Love Gauge */
+        .love-gauge-screen h1 {
+            color: #ff69b4;
+            font-size: 28px;
+            margin-bottom: 20px;
+            animation: heartBeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .heart-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .slider-container {
+            margin: 40px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 12px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #ffb3d9, #ff69b4, #ff1493);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff1493;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            width: 35px;
+            height: 35px;
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.7);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff1493;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .slider::-moz-range-thumb:hover {
+            width: 35px;
+            height: 35px;
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.7);
+        }
+
+        .slider-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .slider-value {
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .love-message {
+            font-size: 22px;
+            color: #ff1493;
+            margin: 30px 0;
+            min-height: 40px;
+            font-weight: bold;
+            animation: popIn 0.4s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+            display: none;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+        }
+
+        .next-btn.show {
+            display: inline-block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Screen 2: Gift Boxes */
+        .gifts-screen h1 {
+            color: #ff69b4;
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .gift-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffd6e8, #ffb3d9);
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+            border: 3px solid #ff69b4;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1) rotateZ(5deg);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.4);
+        }
+
+        .gift-box:active {
+            transform: scale(0.95);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fff0f6, #ffe8f0);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff69b4;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: #ff1493;
+        }
+
+        /* Box 1: Bouquet */
+        .bouquet {
+            font-size: 80px;
+            margin: 30px 0;
+            animation: sway 2s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% {
+                transform: rotateZ(-5deg);
+            }
+            50% {
+                transform: rotateZ(5deg);
+            }
+        }
+
+        .romantic-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .romantic-card {
+            background: #ffd6e8;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #333;
+            font-style: italic;
+        }
+
+        .romantic-card:hover {
+            background: #ffb3d9;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        /* Box 2: Music & Photos */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .photo-item {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(135deg, #ffb3d9, #ffc0cb);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            border: 2px solid #ff69b4;
+        }
+
+        .audio-player {
+            margin: 25px 0;
+            width: 100%;
+        }
+
+        audio {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* Box 3: Love Letter */
+        .love-letter {
+            background: #fffacd;
+            border: 3px dashed #ff69b4;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
+            text-align: left;
+            box-shadow: inset 0 0 20px rgba(255, 105, 180, 0.1);
+        }
+
+        .love-letter-header {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .love-letter-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .love-letter-signature {
+            text-align: right;
+            font-size: 18px;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            color: #ff69b4;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .love-gauge-screen h1 {
+                font-size: 24px;
+            }
+
+            .heart-icon {
+                font-size: 40px;
+            }
+
+            .gift-boxes {
+                gap: 15px;
+            }
+
+            .gift-box {
+                width: 85px;
+                height: 85px;
+                font-size: 40px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+
+            .bouquet {
+                font-size: 60px;
+            }
+
+            .romantic-cards {
+                gap: 12px;
+            }
+
+            .love-letter {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 20px 15px;
+                border-radius: 20px;
+            }
+
+            .love-gauge-screen h1 {
+                font-size: 20px;
+            }
+
+            .heart-icon {
+                font-size: 35px;
+            }
+
+            .gift-box {
+                width: 75px;
+                height: 75px;
+                font-size: 35px;
+            }
+
+            .love-message {
+                font-size: 18px;
+            }
+
+            .romantic-card {
+                font-size: 12px;
+            }
+
+            .love-letter {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Screen 1: Love Gauge -->
+        <div class="screen active love-gauge-screen">
+            <span class="heart-icon">💕</span>
+            <h1>How much do you love me?</h1>
+            <div class="slider-container">
+                <div class="slider-label">Move the slider to show your love</div>
+                <input type="range" min="0" max="100" value="0" class="slider" id="loveSlider">
+                <div class="slider-value" id="sliderValue">0%</div>
+                <div class="love-message" id="loveMessage">Only that much? 😭</div>
+            </div>
+            <button class="next-btn" id="nextBtn">Next →</button>
+        </div>
+
+        <!-- Screen 2: Gift Boxes -->
+        <div class="screen gifts-screen">
+            <h1>You passed the love test! 🎉<br>Your surprises are waiting for you</h1>
+            <div class="gift-boxes">
+                <div class="gift-box" id="bouquetBox">🌹</div>
+                <div class="gift-box" id="musicBox">🎵</div>
+                <div class="gift-box" id="letterBox">💌</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Bouquet -->
+    <div class="modal" id="bouquetModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeBouquetModal()">&times;</button>
+            <div class="modal-title">Red Rose Bouquet 🌹</div>
+            <div class="bouquet">🌹🌹🌹</div>
+            <div class="romantic-cards">
+                <div class="romantic-card">You are the reason I smile 💖</div>
+                <div class="romantic-card">Every moment with you is a gift ✨</div>
+                <div class="romantic-card">My heart beats for you 💓</div>
+                <div class="romantic-card">Forever starts with you 🌹</div>
+                <div class="romantic-card">You make my world colorful 🌈</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Music & Photos -->
+    <div class="modal" id="musicModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeMusicModal()">&times;</button>
+            <div class="modal-title">Our Memories 🎵📸</div>
+            <div class="photo-grid">
+                <div class="photo-item">💕</div>
+                <div class="photo-item">😊</div>
+                <div class="photo-item">🌟</div>
+                <div class="photo-item">🎉</div>
+            </div>
+            <div class="audio-player">
+                <p style="font-size: 14px; color: #ff69b4; margin-bottom: 10px;">🎧 Our Song</p>
+                <audio controls>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <p style="font-size: 12px; color: #666; margin-top: 15px; font-style: italic;">These are our precious moments together ✨</p>
+        </div>
+    </div>
+
+    <!-- Modal for Love Letter -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeLetterModal()">&times;</button>
+            <div class="modal-title">A Love Letter for You 💌</div>
+            <div class="love-letter">
+                <div class="love-letter-header">💕</div>
+                <div class="love-letter-content">
+                    <p>My Dearest,</p>
+                    <p style="margin-top: 15px;">In this world full of chaos and uncertainty, you are my constant. You are the light that guides me through the darkest days, and the reason I believe in love.</p>
+                    <p style="margin-top: 15px;">Every moment with you feels like a beautiful dream. Your smile melts my heart, your laugh fills my soul with joy, and your presence makes everything feel right.</p>
+                    <p style="margin-top: 15px;">I love you not just for what you are, but for what I am when I'm with you. You inspire me to be better, to love deeper, and to cherish every second we share.</p>
+                    <p style="margin-top: 15px;">Forever and always,</p>
+                </div>
+                <div class="love-letter-signature">With all my heart 💕</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('loveSlider');
+        const sliderValue = document.getElementById('sliderValue');
+        const loveMessage = document.getElementById('loveMessage');
+        const nextBtn = document.getElementById('nextBtn');
+        const screen1 = document.querySelector('.love-gauge-screen');
+        const screen2 = document.querySelector('.gifts-screen');
+        const bouquetBox = document.getElementById('bouquetBox');
+        const musicBox = document.getElementById('musicBox');
+        const letterBox = document.getElementById('letterBox');
+        const bouquetModal = document.getElementById('bouquetModal');
+        const musicModal = document.getElementById('musicModal');
+        const letterModal = document.getElementById('letterModal');
+
+        // Love Gauge Messages
+        const messages = {
+            0: "Only that much? 😭",
+            25: "Only that much?",
+            45: "That hurts...",
+            59: "Half? Seriously?",
+            70: "Half? Seriously?",
+            92: "Aww, that's more like it!",
+            100: "Correct answer! 🎉"
+        };
+
+        slider.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            sliderValue.textContent = value + '%';
+
+            // Determine message
+            let message = messages[0];
+            if (value >= 92) {
+                message = messages[92];
+            } else if (value >= 70) {
+                message = messages[70];
+            } else if (value >= 59) {
+                message = messages[59];
+            } else if (value >= 45) {
+                message = messages[45];
+            } else if (value >= 25) {
+                message = messages[25];
+            } else {
+                message = messages[0];
+            }
+
+            loveMessage.textContent = message;
+
+            // Show Next button only when slider is at 100%
+            if (value === 100) {
+                nextBtn.classList.add('show');
+            } else {
+                nextBtn.classList.remove('show');
+            }
+        });
+
+        // Next Button
+        nextBtn.addEventListener('click', function() {
+            screen1.classList.remove('active');
+            screen2.classList.add('active');
+        });
+
+        // Gift Box Click Handlers
+        bouquetBox.addEventListener('click', function() {
+            bouquetModal.classList.add('show');
+        });
+
+        musicBox.addEventListener('click', function() {
+            musicModal.classList.add('show');
+        });
+
+        letterBox.addEventListener('click', function() {
+            letterModal.classList.add('show');
+        });
+
+        // Modal Close Functions
+        function closeBouquetModal() {
+            bouquetModal.classList.remove('show');
+        }
+
+        function closeMusicModal() {
+            musicModal.classList.remove('show');
+        }
+
+        function closeLetterModal() {
+            letterModal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === bouquetModal) {
+                closeBouquetModal();
+            }
+            if (event.target === musicModal) {
+                closeMusicModal();
+            }
+            if (event.target === letterModal) {
+                closeLetterModal();
+            }
+        });
+    </script>
+</body>
+</html>
